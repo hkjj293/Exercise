@@ -59,14 +59,14 @@ int main()
 	//stackOverflow(0);
 	clock_t t;
 	t = clock();
-	//Method 1
+	//Method 1 --> craate a pointer to an array of size CELLNUM in stack (size 1 QWORD)
 	int* arr2 = new int[CELLNUM];
 	for (int i = 0; i < CELLNUM; i++) { arr2[i] = i; }
 	//for (int i = 0; i < 10; i++) { std::cout << arr2[i] << std::endl; }
 	std::cout << "Method 1 :" << (clock() - t) << std::endl;
 	delete[] arr2;
 
-	//Method 2 --> use too much heap
+	//Method 2 --> use too much stack coz it create an array of size CELLNUM in stack (size CELLNUM QWORD)
 	/*
 	t = clock();
 	int* arr3[CELLNUM];
