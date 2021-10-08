@@ -12,6 +12,7 @@ int main()
 	p5_memory();
 	p6_scope_and_extent();
 	p7_reference();
+	p8_arrays();
 	return 0;
 }
 

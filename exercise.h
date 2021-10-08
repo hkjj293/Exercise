@@ -7,6 +7,7 @@ void p4_pointers();
 void p5_memory();
 void p6_scope_and_extent();
 void p7_reference();
+void p8_arrays();
 
 struct node {
 	int value;

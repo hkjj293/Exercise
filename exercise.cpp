@@ -13,9 +13,13 @@ void terminate_tree(struct node* tree);
 void insert_integer(struct node** tree, int value);
 void some_function();
 void swap(int& a, int& b);
+void bubble_sort_ref(int a[], int size);
+void print_name(char a[]);
+void write_name(char des[], const char name[], int length);
 namespace p6 {
 	void some_function();
 }
+int nums[10] = { 7, 3, 5, 2, 1, 4, 6, 9, 10, 8 };
 
 void p1_hello_world() {
 	unsigned int a = -8;
@@ -99,6 +103,22 @@ void p7_reference() {
 	std::cout << a << "-" << b << std::endl;
 	swap(a, b);
 	std::cout << a << "-" << b << std::endl;
+	for (int i = 0; i < 10; i++) { std::cout <<nums[i] << std::endl; }
+	bubble_sort_ref(nums, 10);
+	for (int i = 0; i < 10; i++) { std::cout << nums[i] << std::endl; }
+}
+
+void p8_arrays() {
+	char name[] = "Chris Hui";
+	print_name(name);
+	char* first = NULL;
+	char* last = NULL;
+	write_name(first, "Chris", 5);
+	write_name(last, "Hui", 3);
+	std::cout << first << " " << last <<  std::endl;
+	delete[] first;
+	delete[] last;
+
 }
 
 void product(int a, int b) {
@@ -191,15 +211,35 @@ void some_function() {
 	std::cout << "some function outside p6" << std::endl;
 }
 
-
 void p6::some_function() {
 	std::cout << "some function inside p6" << std::endl;
 }
-
-
 
 void swap(int& a, int& b) {
 	int temp = a;
 	a = b;
 	b = temp;
+}
+
+void bubble_sort_ref(int a[], int size) {
+	for (int i = 1; i < size; i++) {
+		for (int j = 0; j < size-i; j++) {
+			if (a[j] > a[j + 1]) {
+				swap(a[j], a[j + 1]);
+			}			
+		}
+	}
+}
+
+void print_name(char a[]) {
+	std::cout << a << std::endl;
+}
+
+void write_name(char des[], const char name[], int length) {
+	//if (des != NULL) delete[] des;
+	des = new char[length+1];
+	des[length] = '\0';
+	for (int i = length - 1 ; i >= 0; i-- ) {
+		des[i] = name[i];
+	}
 }
