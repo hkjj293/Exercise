@@ -1,5 +1,6 @@
 #include "exercise.h"
 #include <iostream>
+#include <time.h>
 
 void product(int a, int b);
 double quotient(double a, int b);
@@ -9,13 +10,16 @@ bool isNeg(int a);
 void swap(int* a, int* b);
 void printEven(int* a);
 void print_tree(struct node* tree);
-void terminate_tree(struct node* tree);
+void terminate_tree(struct node*& tree);
 void insert_integer(struct node** tree, int value);
 void some_function();
 void swap(int& a, int& b);
 void bubble_sort_ref(int a[], int size);
 void print_name(char a[]);
-void write_name(char des[], const char name[], int length);
+void write_name(char* des[], const char name[], int length);
+void battleship(int map_size, int level);
+bool** battleship_init(int size);
+void terminate_battleship(bool**& map, int size);
 namespace p6 {
 	void some_function();
 }
@@ -31,7 +35,7 @@ void p1_hello_world() {
 	std::cout << c + b << std::endl << c * b;
 	std::string name;
 	std::cout << "Enter your name" << std::endl;
-	std::cin >> name;
+	std::cin >> name; 
 	std::cout << "Hello " << name << "!";
 }
 
@@ -87,6 +91,7 @@ void p5_memory() {
 	}
 	print_tree(root);
 	terminate_tree(root);
+	std::cout << root << std::endl;
 }
 
 void p6_scope_and_extent() {
@@ -113,12 +118,12 @@ void p8_arrays() {
 	print_name(name);
 	char* first = NULL;
 	char* last = NULL;
-	write_name(first, "Chris", 5);
-	write_name(last, "Hui", 3);
+	write_name(&first, "Chris", 5);
+	write_name(&last, "Hui", 3);
 	std::cout << first << " " << last <<  std::endl;
 	delete[] first;
 	delete[] last;
-
+	battleship(5,2);
 }
 
 void product(int a, int b) {
@@ -181,7 +186,7 @@ void print_tree(struct node* tree) {
 	}
 }
 
-void terminate_tree(struct node* tree) {
+void terminate_tree(struct node*& tree) {
 	if (tree->left != NULL) {
 		terminate_tree(tree->left);
 	}
@@ -235,11 +240,61 @@ void print_name(char a[]) {
 	std::cout << a << std::endl;
 }
 
-void write_name(char des[], const char name[], int length) {
+void write_name(char* des[], const char name[], int length) {
 	//if (des != NULL) delete[] des;
-	des = new char[length+1];
-	des[length] = '\0';
+	*des = new char[length+1];
+	(*des)[length] = '\0';
 	for (int i = length - 1 ; i >= 0; i-- ) {
-		des[i] = name[i];
+		(*des)[i] = name[i];
 	}
+}
+
+void battleship(int map_size, int level) {
+	bool** map = battleship_init(map_size);
+	int trials = map_size * map_size / level;
+	while (trials > 0) {
+		std::cout << "You have " << trials << " trials left--" << std::endl;
+		std::cout << "please input the X coordinate (0-" << map_size - 1 <<"): ";
+		int x;
+		std::cin >> x;
+		std::cout << "please input the Y coordinate (0-" << map_size - 1 << "): ";
+		int y;
+		std::cin >> y;
+		if (map[y][x]) {
+			break;
+		}
+		else {
+			std::cout << "Wrong Guess... Try again!" << std::endl;
+			trials--;
+		}
+	}
+	if (trials > 0) {
+		std::cout << "Perfect Guess... You win!" << std::endl;
+	}
+	else {
+		std::cout << "Wrong Guess... You lose!" << std::endl;
+	}
+	terminate_battleship(map,map_size);
+}
+
+bool** battleship_init(int size) {
+	bool** map = new bool* [size];
+	for (int i = 0; i < size; i++) {
+		map[i] = new bool[size];
+		for (int j = 0; j < size; j++) {
+			map[i][j] = false;
+		}
+	}
+	srand(time(NULL));
+	map[rand() % size][rand() % size] = true;
+	return map;
+}
+
+void terminate_battleship(bool**& map, int size) {
+	for (int i = 0; i < size; i++) {
+		delete[] map[i];
+		map[i] = NULL;
+	}
+	delete[] map;
+	map = NULL;
 }
