@@ -8,6 +8,9 @@ void p5_memory();
 void p6_scope_and_extent();
 void p7_reference();
 void p8_arrays();
+void p9_classes();
+void p10_inheritance();
+void p11_templates();
 
 struct node {
 	int value;

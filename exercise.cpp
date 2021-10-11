@@ -45,7 +45,6 @@ void p2_functions() {
 }
 
 void p3_program_flow() {
-	calculator(100, 3, '/');
 	std::cout << isNeg(-23) << " " << isNeg(34) << std::endl;
 	askTillNeg();
 }
@@ -285,7 +284,7 @@ bool** battleship_init(int size) {
 			map[i][j] = false;
 		}
 	}
-	srand(time(NULL));
+	srand((int)time(NULL));
 	map[rand() % size][rand() % size] = true;
 	return map;
 }
