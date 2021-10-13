@@ -37,7 +37,7 @@ void l8::Q2() const {
 
 void l8::Q3() const {
 	std::cout << "Q3:" << std::endl;
-	battleship(5, 2);
+	battleship(5, 4);
 }
 
 void print_name(char a[]) {

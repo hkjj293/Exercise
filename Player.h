@@ -4,7 +4,7 @@
 class Player {
 public:
 	Player(int hps);
-	Player(int hps, int* sc);
+	Player(int hps, int* score);
 	~Player();
 	int hit_points;
 	int* score;

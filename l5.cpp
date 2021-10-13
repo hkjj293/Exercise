@@ -56,8 +56,9 @@ void l5::Q4() const {
 void l5::Q5() const {
 	std::cout << "Q5:" << std::endl;
 	struct node* root = NULL;
-	for (int i = 0; i < 20; i++) {
-		insert_integer(&root, i * (-1 * (i % 2) + -1 * (i % 2 - 1)));
+	srand(1);
+	for (int i = 0; i < 2000; i++) {
+		insert_integer(&root, rand()%80-40);
 	}
 	print_tree(root);
 	terminate_tree(root);
