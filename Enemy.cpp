@@ -14,3 +14,7 @@ Enemy::Enemy(int hps) :
 Enemy::~Enemy() {
 	delete score;
 }
+
+void Enemy::hit(int damage) {
+	hit_points -= damage;
+}

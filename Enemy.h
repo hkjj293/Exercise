@@ -4,7 +4,8 @@ class Enemy {
 public:
 	Enemy(int hps);
 	Enemy(int hps, int* sc);
-	~Enemy();
+	virtual void hit(int damage);
+	virtual ~Enemy();
 	int hit_points;
 	int* score;	
 };

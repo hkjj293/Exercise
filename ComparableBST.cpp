@@ -1,14 +1,14 @@
-#include "BST.h"
+#include "ComparableBST.h"
 #include <iostream>
 
-BST::BST() {
+ComparableBST::ComparableBST() {
 	root = NULL;
 	depth = 0;
 }
 
-BST::~BST() {
-	struct node* curr = this->root;
-	struct node** stack = new node * [this->depth];
+ComparableBST::~ComparableBST() {
+	struct Comparablenode* curr = this->root;
+	struct Comparablenode** stack = new Comparablenode * [this->depth];
 	for (int i = 0; i < this->depth; i++) {
 		stack[i] = NULL;
 	}
@@ -22,9 +22,13 @@ BST::~BST() {
 		}
 		depth--;
 		curr = stack[depth - 1];
-		struct node* disposal = curr;
+		struct Comparablenode* disposal = curr;
 		curr = curr->right;
-		std::cout << "deleting " << disposal->value << std::endl;
+		std::cout << "deleting " << disposal->value->toString() << std::endl;
+		if (disposal->value != NULL) {
+			delete disposal->value;
+			disposal->value = NULL;
+		}
 		delete disposal;
 		disposal = NULL;
 		std::cout << "deleted" << std::endl;
@@ -32,28 +36,28 @@ BST::~BST() {
 	delete[] stack;
 }
 
-void BST::add_node(int val) {
-	struct node** curr = &(this->root);
+void ComparableBST::add_node(Comparable* value) {
+	struct Comparablenode** curr = &(this->root);
 	int depth = 1;
 	while ((*curr)!=NULL) {
 		depth++;
-		if (val < (*curr)->value) {
+		if ((*curr)->value->compare_to(*value)>0) {
 			curr = &((*curr)->left);
 		}
 		else {
 			curr = &((*curr)->right);
 		}
 	}
-	*curr = new node;
+	*curr = new Comparablenode;
 	(*curr)->left = NULL;
 	(*curr)->right = NULL;
-	(*curr)->value = val;
+	(*curr)->value = value;
 	this->depth += (this->depth < depth)*(depth - this->depth);
 }
 
-void BST::print() {
-	struct node* curr = this->root;
-	struct node** stack = new node* [this->depth];
+void ComparableBST::print() {
+	struct Comparablenode* curr = this->root;
+	struct Comparablenode** stack = new Comparablenode * [this->depth];
 	for (int i = 0; i < this->depth; i++) {
 		stack[i] = NULL;
 	}
@@ -67,17 +71,17 @@ void BST::print() {
 		}
 		depth--;
 		curr = stack[depth - 1];
-		std::cout << curr->value << std::endl;
+		std::cout << curr->value->toString() << std::endl;
 		curr = curr->right;
 	}
 	delete[] stack;
 }
 
-bool BST::has_element(int val) {
-	struct node* curr = this->root;
+bool ComparableBST::has_element(Comparable& value) {
+	struct Comparablenode* curr = this->root;
 	while (curr != NULL) {
-		if (val == curr->value) return true;
-		if (val < curr->value) {
+		if (value.compare_to(*((*curr).value)) == 0) return true;
+		if (curr->value->compare_to(value) < 0) {
 			curr = curr->left;
 		}
 		else {
