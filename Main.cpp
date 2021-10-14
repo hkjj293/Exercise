@@ -10,9 +10,10 @@
 #include "l8.h"
 #include "l9.h"
 #include "l10.h"
+#include "l11.h"
 //#include "exercise.h"
 
-const int LESSON_DONE = 10;
+const int LESSON_DONE = 11;
 
 void lessons_init(lesson**& lessons);
 void terminate_lessons(lesson**& lessons);
@@ -26,7 +27,7 @@ int main()
 		lessons[i]->ans();
 	}
 	*/
-	lessons[9]->ans();
+	lessons[10]->ans();
 	terminate_lessons(lessons);
 	return 0;
 }
@@ -43,6 +44,7 @@ void lessons_init(lesson**& lessons) {
 	lessons[7] = (lesson*)new l8();
 	lessons[8] = (lesson*)new l9();
 	lessons[9] = (lesson*)new l10();
+	lessons[10] = (lesson*)new l11();
 }
 
 void terminate_lessons(lesson**& lessons) {

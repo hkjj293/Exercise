@@ -4,6 +4,7 @@
 #include "Battleship.h"
 #include "BST.h"
 #include <iostream>
+#include <time.h>
 
 bool** bs_init(int size);
 void bs_terminate(bool**& map, int size);
