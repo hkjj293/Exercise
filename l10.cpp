@@ -5,6 +5,7 @@
 #include <iostream>
 
 void decrem_hit_point(Enemy& en);
+void BST_has_int(ComparableBST* c, int a);
 
 l10::l10() {
 	this->title = "===============  Lesson 10 ================ < Inheritance";
@@ -65,14 +66,17 @@ void l10::Q5() const {
 		cbst->add_node(cint);
 	}
 	cbst->print();
-	ComparableInt cint = ComparableInt(6);
-	std::cout << "6: " << cbst->has_element(cint) << std::endl;
-	cint = ComparableInt(50);
-	std::cout << "50: " << cbst->has_element(cint) << std::endl;
+	BST_has_int(cbst, 6);
+	BST_has_int(cbst, 50);
 	delete cbst;
 }
 
 void decrem_hit_point(Enemy& en) {
 	en.hit(70);
+}
+
+void BST_has_int(ComparableBST* c, int a) {
+	ComparableInt cint = ComparableInt(a);
+	std::cout << "6: " << c->has_element(cint) << std::endl;
 }
 

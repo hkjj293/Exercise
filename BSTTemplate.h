@@ -3,10 +3,10 @@
 #include <iostream>
 
 template <typename T>
-struct node {
+struct nodeTemplate {
 	T value;
-	struct node* left;
-	struct node* right;
+	struct nodeTemplate* left;
+	struct nodeTemplate* right;
 };
 
 template <typename T>
@@ -18,7 +18,7 @@ public:
 	void print();
 	bool has_element(T val);
 private:
-	struct node* root;
+	struct nodeTemplate<T>* root;
 	int depth;
 };
 
@@ -30,8 +30,8 @@ BSTTemplate<T>::BSTTemplate() {
 
 template <typename T>
 BSTTemplate<T>::~BSTTemplate() {
-	struct node* curr = this->root;
-	struct node** stack = new node * [this->depth];
+	struct nodeTemplate<T>* curr = this->root;
+	struct nodeTemplate<T>** stack = new nodeTemplate<T> * [this->depth];
 	for (int i = 0; i < this->depth; i++) {
 		stack[i] = NULL;
 	}
@@ -45,7 +45,7 @@ BSTTemplate<T>::~BSTTemplate() {
 		}
 		depth--;
 		curr = stack[depth - 1];
-		struct node* disposal = curr;
+		struct nodeTemplate<T>* disposal = curr;
 		curr = curr->right;
 		std::cout << "deleting " << disposal->value << std::endl;
 		delete disposal;
@@ -53,11 +53,13 @@ BSTTemplate<T>::~BSTTemplate() {
 		std::cout << "deleted" << std::endl;
 	}
 	delete[] stack;
+	stack = NULL;
+	root = NULL;
 }
 
 template <typename T>
 void BSTTemplate<T>::add_node(T val) {
-	struct node** curr = &(this->root);
+	struct nodeTemplate<T>** curr = &(this->root);
 	int depth = 1;
 	while ((*curr) != NULL) {
 		depth++;
@@ -68,7 +70,7 @@ void BSTTemplate<T>::add_node(T val) {
 			curr = &((*curr)->right);
 		}
 	}
-	*curr = new node;
+	*curr = new nodeTemplate<T>;
 	(*curr)->left = NULL;
 	(*curr)->right = NULL;
 	(*curr)->value = val;
@@ -77,8 +79,8 @@ void BSTTemplate<T>::add_node(T val) {
 
 template <typename T>
 void BSTTemplate<T>::print() {
-	struct node* curr = this->root;
-	struct node** stack = new node * [this->depth];
+	struct nodeTemplate<T>* curr = this->root;
+	struct nodeTemplate<T>** stack = new nodeTemplate<T> * [this->depth];
 	for (int i = 0; i < this->depth; i++) {
 		stack[i] = NULL;
 	}
@@ -96,11 +98,12 @@ void BSTTemplate<T>::print() {
 		curr = curr->right;
 	}
 	delete[] stack;
+	stack = NULL;
 }
 
 template <typename T>
 bool BSTTemplate<T>::has_element(T val) {
-	struct node* curr = this->root;
+	struct nodeTemplate<T>* curr = this->root;
 	while (curr != NULL) {
 		if (val == curr->value) return true;
 		if (val < curr->value) {

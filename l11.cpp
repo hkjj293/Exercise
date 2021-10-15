@@ -1,6 +1,8 @@
 #include "l11.h"
 #include <iostream>
 #include "Matrix.h"
+#include "BSTTemplate.h"
+#include "StackTemplate.h"
 
 void set_matrix(Matrix<char>& ch);
 void print_matrix(Matrix<char>& ch);
@@ -38,11 +40,30 @@ void l11::Q3() const {
 
 void l11::Q4() const {
 	std::cout << "Q4:" << std::endl;
+	BSTTemplate<int>* bst = new BSTTemplate<int>();
+	srand(1);
+	for (int i = 0; i < 5; i++) {
+		bst->add_node(rand() % 80 - 40);
+	}
+	bst->print();
+	std::cout << "6: " << bst->has_element(6) << std::endl;
+	std::cout << "50: " << bst->has_element(50) << std::endl;
+	delete bst;
 }
 
 void l11::Q5() const {
 	std::cout << "Q5:" << std::endl;
-
+	StackTemplate<int>* stack = new StackTemplate<int>();
+	stack->push(5);
+	stack->push(6);
+	stack->push(7);
+	stack->push(9);
+	std::cout << stack->pop() << std::endl;
+	std::cout << stack->pop() << std::endl;
+	std::cout << stack->pop() << std::endl;
+	std::cout << stack->pop() << std::endl;
+	delete stack;
+	stack = NULL;
 }
 
 void set_matrix(Matrix<char>& ch) {
